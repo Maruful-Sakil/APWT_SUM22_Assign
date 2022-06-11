@@ -20,7 +20,7 @@ class LoginController extends Controller
                 "email.required"=>"Please provide your email",
                 
             ]);
-            return redirect()->route('afterlogin');
+            return redirect()->route('home');
         
     }
 }
