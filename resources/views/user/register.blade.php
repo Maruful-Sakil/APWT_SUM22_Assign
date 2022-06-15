@@ -10,11 +10,11 @@
         @error('email')
             {{$message}} <br>
         @enderror
-        Password: <input type="password" name="password" ><br>
+        Password: <input type="password" name="password" placeholder="password" ><br>
         @error('password')
             {{$message}}<br>
         @enderror
-        Confirm Password: <input type="password" name="conf_password"><br>
+        Confirm Password: <input type="password" name="conf_password" placeholder ="confirm pass"><br>
         @error('conf_password')
             {{$message}}<br>
         @enderror

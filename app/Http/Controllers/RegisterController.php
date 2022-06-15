@@ -15,8 +15,8 @@ class RegisterController extends Controller
         $this->validate($req,
             [
                 "name"=>"required|max:10|min:3",
-                "email"=>"required|",
-                "password"=>"required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
+                "email"=>"required|unique:clients,email",
+                "password"=>"required|", //regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
                 "conf_password"=>"required|same:password"
             ],
         
@@ -29,7 +29,43 @@ class RegisterController extends Controller
             $st->email =$req->email;
             $st->password =$req->password;
             $st->save();
+            session()->flash('msg','successfull');
             return redirect()->route('user.login');
         
     }
+    function login(){
+        return view('user.login');
+    }
+    function loginSubmit(Request $req)
+    {
+        $this->validate($req,[
+            "email"=>"required|exists:clients,email",
+            "password"=>"required"
+        ]);
+        $user = Client::where('email',$req->email)
+                            ->where('password',$req->password)->first();
+
+        if($user){
+            //session()->flash('msg','User Exists');
+            session()->put('logged',$user->email);
+            return redirect()->route('user.dash');
+
+        }
+        else {
+            session()->flash('msg','User not valid');
+        return back();
+        }
+
+    }
+    function dashboard(){
+
+        //$user = Client::where('user_id',session()->get('logged'))->first();
+        return view('user.dashboard'); //->with('user',$user);
+    }
+    function logout(){
+        session()->forget('logged');
+        session()->flash('msg','Sucessfully Logged out');
+        return redirect()->route('user.login');
+    }
+    
 }

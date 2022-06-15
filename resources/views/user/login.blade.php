@@ -6,7 +6,7 @@
         @error('email')
             {{$message}} <br>
         @enderror
-        Password: <input type="password" name="password" ><br>
+        Password: <input type="password" name="password" placeholder="password" ><br>
         @error('password')
             {{$message}}<br>
         @enderror
