@@ -59,8 +59,8 @@ class RegisterController extends Controller
     }
     function dashboard(){
 
-        //$user = Client::where('user_id',session()->get('logged'))->first();
-        return view('user.dashboard'); //->with('user',$user);
+        $user = Client::where('email',session()->get('logged'))->first();
+        return view('user.dashboard')->with('user',$user);
     }
     function logout(){
         session()->forget('logged');

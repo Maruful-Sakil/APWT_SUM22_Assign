@@ -1,3 +1,4 @@
+<h1>{{Session::get('msg')}}</h1>
 @extends('layouts.main')
 @section('content')
     <form method="post" action="">
